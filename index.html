@@ -9,119 +9,68 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
     integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
   <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Work Day Scheduler</title>
-
+  <link rel="stylesheet" href="./assets/style.css" />
+  <title>Weather Forcast API</title>
 </head>
+<header>Weather Dashboard</header>
 
 <body>
-  <header class="jumbotron">
-    <h1 class="display-3">Work Day Scheduler</h1>
-    <p class="lead">A simple calendar app for scheduling your work day</p>
-    <h2>Current Time &amp; Date: <br /> <span id="time-display">00:00:00</span></h2>
-  </header>
-  <!-- Timeblocks go here -->
-  <section>
     <div class="container">
-      <div class="row time-block" id="9am">
-        <!-- Adding width of column and moving class of hour to outside div, deleting span w/ unused class and id-->
-        <div class="input-group-prepend col-md-2 hour">
-          09:00 am
-        </div>
-        <!-- Added width of column -->
-        <textarea type="text" class="description col-md-9" id="9am" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <!-- Commented out Div -->
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
+        <div class="row">
+          <div class="search col-6">
+              <h3>Search for a City:</h3>
+                <div class="input-group col-sm-8"><i class="fa fa-cloud" aria-hidden="true"></i>
+                    <input type="text" id='input-search' class="form-control" placeholder="Search Cities">
+                    <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
+              </div>
+          </div>
+          <div class='col-6' id='currentWeather'><i class='fas fa-sun' style='font-size:48px'></i>
+              <h3>CURRENT WEATHER</h3>
+              
+            </div>
       </div>
 
-      <div class="row time-block" id="10am">
-        <div class="input-group-prepend col-md-2 hour">
-          10:00 am
-        </div>
-        <textarea type="text" class="description col-md-9" id="10am" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-      <div class="row time-block" id="11am">
-        <div class="input-group-prepend col-md-2 hour">
-          11:00 am
-        </div>
-        <textarea type="text" class="description col-md-9" id="11am" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
+      <div class="container">
+          <div class="row">
+            <h3>5 Day Weather Forecast </h3>
+                <div class="forecast col-12"></div> 
+          
+          </div>
       </div>
 
 
-      <div class="row time-block" id="12pm">
-        <div class="input-group-prepend col-md-2 hour">
-          12:00 am
-        </div>
-        <textarea type="text" class="description col-md-9" id="12pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
+      
+      <!-- <div class="col-12 col-md-8">
+        <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
+        <div id="repos-container" class="list-group"></div>
+      </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </div>
-
-
-      <div class="row time-block" id="13pm">
-        <div class="input-group-prepend col-md-2 hour">
-          01:00 pm
-        </div>
-        <textarea type="text" class="description col-md-9" id="1pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-
-      <div class="row time-block" id="14pm">
-        <div class="input-group-prepend col-md-2 hour">
-          02:00 pm
-        </div>
-        <textarea type="text" class="description col-md-9" id="2pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-
-      <div class="row time-block" id="15pm">
-        <div class="input-group-prepend col-md-2 hour">
-          03:00 pm
-        </div>
-        <textarea type="text" class="description col-md-9" id="3pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-
-      <div class="row time-block" id="16pm">
-        <div class="input-group-prepend col-md-2 hour">
-          04:00 pm
-        </div>
-        <textarea type="text" class="description col-md-9" id="4pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-      <div class="row time-block" id="17pm">
-        <div class="input-group-prepend col-md-2 hour">
-          05:00 pm
-        </div>
-        <textarea type="text" class="description col-md-9" id="5pm" placeholder="This Hour is Unscheduled"
-          aria-label="This Hour is Unscheduled" aria-describedby="basic-addon2"></textarea>
-        <button class="btn saveBtn col-md-1" type="button">Save</button>
-      </div>
-
-
-    </div>
-  </section>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-  <script src="./script.js"></script>
+  <script src="script.js"></script>
 </body>
 
 </html>
