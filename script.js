@@ -1,98 +1,173 @@
-// this shows the time and calls right now to show the month day year and seconds 
-var timeDisplayEl = $('#time-display');
-//ths is populated with the value of whats put in the description by the user 
-var userInputEl;
-//this is on the imput line and has an individual id for each hour, shows the hour used with the description 
-var hourUsedEl;
-//initially i was going to use these to get the local storage but i found a quicker way online 
-var nineAmEl = $('#9am')
-var tenAmEl = $('#10am')
-var elevenAmEl = $('#11am')
-var twelvePmEl =$('#12pm')
-var onePmEl = $('#1pm')
-var twoPmEl = $('#2pm')
-var threePmEl = $('#3pm')
-var fourPmEl = $('#4pm')
-var fivePmEl = $('#5pm')
+// this is the api key that allows acces to the api 
+var apiKey = "8fd343e8e0a625fd4fe2e99e70b356cb"
+//connects the dom to the html 
+var searchBtn = $('#searchBtn');
+//creates a cityInput variable to has no assigned value
+var cityInput;
+// var inputEll = "";
+//this creates the history array that is stored to the local storage with a key name history or array 
+var historyArr = JSON.parse(localStorage.getItem('history')) || [];
+//this sets the variables lat and lon with no value 
+ var lat;
+ var lon;
 
-var currenthourEl = moment().hour(); 
 
-//display the current date and time to the second in the hero/header 
-function displayTime() {
-    var rightNow = moment().format('MMM DD, YYYY [at] hh:mm:ss a');
-    timeDisplayEl.text(rightNow);
-    // console.log("timeDisplayEl")
-    // console.log('MMM DD, YYYY [at] hh:mm:ss a')
-  }
-  //this calls the displaytime function and shows every second on the screen 
-  setInterval(displayTime, 1000);
+//this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
+function getUvIndex() {
+    fetch(`http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`)
+    .then(response => response.json())
+        .then((data) =>{
+        //    console.log('Fetch Response \n-------------');
+        //    console.log(data.value)
+           var uvEl = $('<p>').text('UV Index: ');
+           var span = $('<span>').text(data.value)
 
-  
-  //lets the page load and the once document is ready this funtion runs 
-  $(document).ready(function () {
-    setCurrentHour()
-    //connecting to the saveBtnEl and crwading the ecent 
-    $(".saveBtn").on('click', function( ) {
-      console.log(this)
-    
-      //gets the user input and the hour and sends it to the local storage in a json string. local storage cant save objects
-      userInputEl = $(this).siblings(".description").val();
-      console.log("userInputEl", userInputEl)
-      
-      hourUsedEl = $(this).siblings(".description").attr("id");
-
-      console.log("hourUsedEl", hourUsedEl)
-      //sets the hour used as the key and the user input as the value 
-      localStorage.setItem(hourUsedEl, userInputEl);
-
-      
-
-  
-  });
-  });
-    
-   //setting current hour and iterating through each timeblock and getting the id of the 24 hour clock  
-  function setCurrentHour() {
-    var currenthourEl = moment().hour(); 
-    //allowed me to see the current hour in the console 
-    console.log ("currenthourEl", currenthourEl)
-      //iteration of the time-block 
-    $(".time-block").each(function () {
-        //parsed through the id creating the var test
-        var test = parseInt($(this).attr("id"));
-        var hour = parseInt(hour)
-        console.log("this", this)
-        //allowed me to see the iteration from 9 to 17 on the console
-        console.log("test", test)
-        //showed the not a number nan symbol on the console indicating it was working 
-        console.log("hour", hour)
-        //if the id is greater than the current hour than change back-ground color to #77dd7
-         if (test > currenthourEl) {
-          $(this).addClass("future")
-        }
-        //if id is less than the current hour than change back-ground color to #d3d3d3
-        if (test < currenthourEl) {
-        $(this).addClass("past")
-        }
-        //if the id is neither change background color to #ff6961 
-        else {
-          $(this).addClass("present")       
-        }
-      });
+           $('#currentWeather .currentWeather').append(uvEl.append(span));
+        })
     }
-  
-  //because the description and time id are both in the textarea i only need one selector 
-  $("#9am").val(localStorage.getItem("9am"));
-  $("#10am").val(localStorage.getItem("10am"));
-  $("#11am").val(localStorage.getItem("11am"));
-  $("#12pm").val(localStorage.getItem("12pm"));
-  $("#1pm").val(localStorage.getItem("1pm"));
-  $("#2pm").val(localStorage.getItem("2pm"));
-  $("#3pm").val(localStorage.getItem("3pm"));
-  $("#4pm").val(localStorage.getItem("4pm"));
-  $("#5pm").val(localStorage.getItem("5pm"));
+
+function getWeatherForecast() {
+    fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`)
+        .then(response => response.json())
+        .then((data) => {
+            // console.log('Fetch Response \n-------------');
+
+            for (let i = 0; i < data.list.length; i++) {
+                if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
+                    console.log(data.list[i])
+                
+                    var dataEl = data.list[i].dt_txt
+
+                    var tempatureEl = data.list[i].main.temp
+                    var cityNameEl = data.list[i].name
+                    var maxTempEl = data.list[i].main.temp_max
+                    var humidityEl = data.list[i].main.humidity
+                    
+                    
+                
+                    var card = $('<div>');
+
+                    card.classList = $('list-item flex-row justify-space-between align-center')
 
 
-  
+                    var dateEll = $('<p>').text('Date: ' + dataEl)
+                    card.append(dateEll)
+                    $('.forecast').append(card)
 
-  
+                    var cityName = $('<p>').text('City: ' + cityNameEl)
+                    card.append(cityName);
+                    $('.forecast').append(card)
+                    
+                    var tempEl = $('<p>').text('Temp: ' + tempatureEl)
+                    card.append(tempEl);
+                    $('.forecast').append(card)
+                    
+                    var maxTemp = $('<p>').text('Max Temp: ' + maxTempEl)
+                    card.append(maxTemp)
+                    $('.forecast').append(card)
+
+                    var humidity = $('<p>').text('Humidity: ' + humidityEl)
+                    card.append(humidity)
+                    $('.forecast').append(card)
+
+
+
+                    
+
+
+                }
+            }
+        })
+}
+
+
+
+
+
+function getCurrentWeather() {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`)
+        .then(response => response.json())
+        .then((data) => {
+
+            // console.log('Fetch Response \n-------------');
+
+            var card = $('<div>').addClass('currentWeather');
+
+            var dateEl = $('<p>').text('Date: ' + moment().format("M/D/YYYY"))
+            card.append(dateEl)
+            $('#currentWeather').append(card)
+
+
+            var cityEl = $('<p>').text('City: ' + data.name)
+            card.append(cityEl);
+            $('#currentWeather').append(card)
+
+            var tempEl = $('<p>').text('Temperature: ' + data.main.temp);
+            card.append(tempEl);
+            $('#currentWeather').append(card);
+
+            var feelsLike = $('<p>').text('Feels Like: ' + data.main.feels_like);
+            card.append(feelsLike)
+            $('#currentWeather').append(card);
+
+            var wind = $('<p>').text('Wind Speed: ' + data.wind.speed);
+            card.append(wind)
+            $('#currentWeather').append(card);
+
+            var humidity = $('<p>').text('Humidity: ' + data.main.humidity);
+            card.append(humidity)
+            $('#currentWeather').append(card);
+
+            var tempMax = $('<p>').text('Temp Max: ' + data.main.temp_max);
+            card.append(tempMax)
+            $('#currentWeather').append(card);
+
+            var tempMin = $('<p>').text('Temp Min: ' + data.main.temp_min);
+            card.append(tempMin)
+            $('#currentWeather').append(card);
+
+
+
+              
+                lat = data.coord.lat;
+                lon = data.coord.lon;
+                
+                getUvIndex();
+
+        });
+};
+
+
+
+
+
+searchBtn.on('click', function () {
+
+    // console.log(input.val());
+    cityInput = $('#input-search').val();
+
+
+    if(historyArr.indexOf(cityInput) === -1){
+
+        historyArr.push(cityInput);
+        localStorage.setItem('history', JSON.stringify(historyArr));
+    }
+
+    getCurrentWeather();
+    getWeatherForecast();
+});
+
+
+function loadHistory(){
+    //make list for history
+
+    for (let i = 0; i < historyArr.length; i++) {
+        // console.log(historyArr[i])
+        //make li tags w/ a button inside
+        //apend li tag to UL tag on html
+        //button when clicked should call getCurrentWeather
+    }
+
+}
+
+loadHistory();
