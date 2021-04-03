@@ -10,6 +10,21 @@ var historyArr = JSON.parse(localStorage.getItem('history')) || [];
 //this sets the variables lat and lon with no value 
  var lat;
  var lon;
+// var historyList = getElementbyId('#historyList')
+// var citties; 
+
+// function renderCities () {
+//      citties.empty(); 
+//      for (var i = 0; i < citties.length; i++) {
+//         var city = citties[i]
+//         var li = $("<li>").text(city);
+//         li.attr("id", "listV")
+//         li.attr("class", )
+         
+//      }
+
+//  }
+
 
 
 //this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
@@ -39,41 +54,93 @@ function getWeatherForecast() {
                     var dataEl = data.list[i].dt_txt
 
                     var tempatureEl = data.list[i].main.temp
-                    var cityNameEl = data.list[i].name
+                    var cityNameEl = data.list[i].city.name
                     var maxTempEl = data.list[i].main.temp_max
+                    var minTemp = data.list[i].main.temp_min
                     var humidityEl = data.list[i].main.humidity
-                    
-                    
-                
-                    var card = $('<div>');
 
-                    card.classList = $('list-item flex-row justify-space-between align-center')
+//                         < div class="card" style = "width: 18rem;" >
+//                             <div class="card-body">
+//                                 <h5 class="card-title">Card title</h5>
+//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//                                 <a href="#" class="card-link">Card link</a>
+//                                 <a href="#" class="card-link">Another link</a>
+//                             </div>
+//                          </div >
+//                         < div class="card" style = "width: 18rem;" >
+//                             <div class="card-body">
+//                                 <h5 class="card-title">Card title</h5>
+//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//                                 <a href="#" class="card-link">Card link</a>
+//                                 <a href="#" class="card-link">Another link</a>
+//                             </div>
+//                          </div >
+//                         < div class="card" style = "width: 18rem;" >
+//                             <div class="card-body">
+//                                 <h5 class="card-title">Card title</h5>
+//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+//                                 <a href="#" class="card-link">Card link</a>
+//                                 <a href="#" class="card-link">Another link</a>
+//                             </div>
+//                          </div >
 
+                    // this is your column: no class attached yet
+                    var col = document.createElement('div');
 
-                    var dateEll = $('<p>').text('Date: ' + dataEl)
-                    card.append(dateEll)
+                    var card = document.createElement('div');
+                    var cardBody = document.createElement('div');
+                    var header6 = document.createElement('h6')
+                    var cardText = document.createElement('p');
+                    var cardTextEl = document.createElement('p');
+                    var cardtext = document.createElement('p');
+                    var cardtextE = document.createElement('p');
+
+                    card.setAttribute('class', 'card w-25 p-3 text-center rounded bg-primary text-white');
+                    cardBody.setAttribute('class', 'card-body');
+                    col.setAttribute('class', 'col-sm-6')
+                    header6.setAttribute('class', 'card-title');
+                    cardText.setAttribute('class', 'card-text');
+                    cardTextEl.setAttribute('class', 'card-text');
+                    cardtext.setAttribute('class', 'card-text');
+                    cardtextE.setAttribute('class', 'card-text');
+
+                    header6.textContent = ("Date: " + dataEl);
+                    cardTextEl.textContent = ("Temp: " + tempatureEl);
+                    cardtext.textContent = ("Max Temp: " + maxTempEl);
+                    cardText.textContent = ("Min Temp: " + minTemp);
+                    cardtextE.textContent = ("Humidity: " + humidityEl);
+
+                    card.append(cardBody);
+                    cardBody.append(header6, cardTextEl, cardtext, cardText, cardtextE);
+
                     $('.forecast').append(card)
 
-                    var cityName = $('<p>').text('City: ' + cityNameEl)
-                    card.append(cityName);
-                    $('.forecast').append(card)
+
+
+                    // card.classList = $('list-item flex-row justify-space-between align-center')
+
+
+                    // var dateEll = $('<p>').text('Date: ' + dataEl)
+                    // // card.append(dateEll)
+
+                    // var cityName = $('<p>').text('City: ' + cityNameEl)
+                    // // card.append(cityName);
+                    // $('.forecast').append(card)
                     
-                    var tempEl = $('<p>').text('Temp: ' + tempatureEl)
-                    card.append(tempEl);
-                    $('.forecast').append(card)
+                    // var tempEl = $('<p>').text('Temp: ' + tempatureEl)
+                    // // card.append(tempEl);
+                    // $('.forecast').append(card)
                     
-                    var maxTemp = $('<p>').text('Max Temp: ' + maxTempEl)
-                    card.append(maxTemp)
-                    $('.forecast').append(card)
+                    // var maxTemp = $('<p>').text('Max Temp: ' + maxTempEl)
+                    // // card.append(maxTemp)
+                    // $('.forecast').append(card)
 
-                    var humidity = $('<p>').text('Humidity: ' + humidityEl)
-                    card.append(humidity)
-                    $('.forecast').append(card)
-
-
-
-                    
-
+                    // var humidity = $('<p>').text('Humidity: ' + humidityEl)
+                    // // card.append(humidity)
+                    // $('.forecast').append(card)
 
                 }
             }
@@ -125,10 +192,6 @@ function getCurrentWeather() {
             var tempMin = $('<p>').text('Temp Min: ' + data.main.temp_min);
             card.append(tempMin)
             $('#currentWeather').append(card);
-
-
-
-              
                 lat = data.coord.lat;
                 lon = data.coord.lon;
                 
@@ -145,9 +208,8 @@ searchBtn.on('click', function () {
 
     // console.log(input.val());
     cityInput = $('#input-search').val();
-
-
-    if(historyArr.indexOf(cityInput) === -1){
+        
+        if(historyArr.indexOf(cityInput) === -1){
 
         historyArr.push(cityInput);
         localStorage.setItem('history', JSON.stringify(historyArr));

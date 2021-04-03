@@ -16,42 +16,35 @@
 
 <body>
     <div class="container">
-      <div class="row">
-        <div class="search col-6">
+      <div class="row ">
+        <div class="search col-3 m-2 bg-light">
           <h3>Search for a City:</h3>
-          <div class="input-group col-sm-8"><i class="fa fa-cloud" aria-hidden="true"></i>
-            <input type="text" id='input-search' class="form-control" placeholder="Search Cities">
+          <div class="input-group mb-2"><i class="fa fa-cloud" aria-hidden="true"></i>
+            <input type="text" id='input-search bg-light' class="form-control" placeholder="Search Cities">
             <button class="btn btn-outline-secondary" type="button" id="searchBtn">Search</button>
           </div>
         </div>
         <div class='col-6' id='currentWeather'><i class='fas fa-sun' style='font-size:48px'></i>
           <h3>CURRENT WEATHER</h3>
-    
-        </div>
+      
       </div>
+    </div>
 
-      <div>
+      <div >
         <ul id='historyList'>
 
         </ul>
       </div>
 
-      <div class="container">
+      <div class="container display: flex-lg-column">
           <div class="row">
             <h3>5 Day Weather Forecast </h3>
                 <div class="forecast col-12"></div> 
           
           </div>
       </div>
+    </div>
 
-
-      
-      <!-- <div class="col-12 col-md-8">
-        <h2 class="subtitle">Showing Repositories for: <span id="repo-search-term"></span></h2>
-        <div id="repos-container" class="list-group"></div>
-      </div> -->
-
-</div>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
