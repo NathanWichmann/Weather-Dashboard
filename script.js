@@ -1,30 +1,15 @@
 // this is the api key that allows acces to the api 
-var apiKey = "8fd343e8e0a625fd4fe2e99e70b356cb"
+var apiKey = "e3418ba2f79f3a5ca9fcb473c1215f42"
 //connects the dom to the html 
 var searchBtn = $('#searchBtn');
 //creates a cityInput variable to has no assigned value
 var cityInput;
-// var inputEll = "";
+var inputEll = "";
 //this creates the history array that is stored to the local storage with a key name history or array 
 var historyArr = JSON.parse(localStorage.getItem('history')) || [];
 //this sets the variables lat and lon with no value 
  var lat;
  var lon;
-// var historyList = getElementbyId('#historyList')
-// var citties; 
-
-// function renderCities () {
-//      citties.empty(); 
-//      for (var i = 0; i < citties.length; i++) {
-//         var city = citties[i]
-//         var li = $("<li>").text(city);
-//         li.attr("id", "listV")
-//         li.attr("class", )
-         
-//      }
-
-//  }
-
 
 
 //this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
@@ -54,7 +39,7 @@ function getWeatherForecast() {
                     var dataEl = data.list[i].dt_txt
 
                     var tempatureEl = data.list[i].main.temp
-                    var cityNameEl = data.list[i].city.name
+                    // var cityNameEl = data.list[i].name
                     var maxTempEl = data.list[i].main.temp_max
                     var minTemp = data.list[i].main.temp_min
                     var humidityEl = data.list[i].main.humidity
@@ -100,7 +85,7 @@ function getWeatherForecast() {
 
                     card.setAttribute('class', 'card w-25 p-3 text-center rounded bg-primary text-white');
                     cardBody.setAttribute('class', 'card-body');
-                    col.setAttribute('class', 'col-sm-6')
+                    col.setAttribute('class', 'col')
                     header6.setAttribute('class', 'card-title');
                     cardText.setAttribute('class', 'card-text');
                     cardTextEl.setAttribute('class', 'card-text');
@@ -112,7 +97,6 @@ function getWeatherForecast() {
                     cardtext.textContent = ("Max Temp: " + maxTempEl);
                     cardText.textContent = ("Min Temp: " + minTemp);
                     cardtextE.textContent = ("Humidity: " + humidityEl);
-
                     card.append(cardBody);
                     cardBody.append(header6, cardTextEl, cardtext, cardText, cardtextE);
 
