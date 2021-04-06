@@ -1,9 +1,10 @@
 // this is the api key that allows acces to the api 
-var apiKey = "e3418ba2f79f3a5ca9fcb473c1215f42"
+var apiKey = "8fd343e8e0a625fd4fe2e99e70b356cb"
 //connects the dom to the html 
 var searchBtn = $('#searchBtn');
 //creates a cityInput variable to has no assigned value
 var cityInput;
+var historyList = $('historyList')
 var inputEll = "";
 //this creates the history array that is stored to the local storage with a key name history or array 
 var historyArr = JSON.parse(localStorage.getItem('history')) || [];
@@ -67,7 +68,6 @@ function getWeatherForecast() {
                     var dataEl = data.list[i].dt_txt
 
                     var tempatureEl = data.list[i].main.temp
-                    // var cityNameEl = data.list[i].name
                     var maxTempEl = data.list[i].main.temp_max
                     var minTemp = data.list[i].main.temp_min
                     var humidityEl = data.list[i].main.humidity
