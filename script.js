@@ -4,7 +4,7 @@ var apiKey = "8fd343e8e0a625fd4fe2e99e70b356cb"
 var searchBtn = $('#searchBtn');
 //creates a cityInput variable to has no assigned value
 var cityInput;
-var historyList = $('historyList')
+var historyList = $('.historyList ul')
 var inputEll = "";
 //this creates the history array that is stored to the local storage with a key name history or array 
 var historyArr = JSON.parse(localStorage.getItem('history')) || [];
@@ -158,6 +158,7 @@ function getCurrentWeather() {
             lon = data.coord.lon;
 
             getUvIndex();
+            addHistoryitem(data.name);
 
         });
 };
@@ -181,19 +182,33 @@ searchBtn.on('click', function () {
     getWeatherForecast();
 });
 
+function addHistoryitem(item) {
+    var li = $('<li>').text(item)
+    li.attr('id', 'list');
+    // li.attr('data', history)
+    li.attr('class', 'list-group-item')
+  
+    console.log(li)
+    historyList.append(li);
+    
+
+}
+
 
 function loadHistory() {
     //make list for history
 
     for (let i = 0; i < historyArr.length; i++) {
-        // console.log(historyArr[i])
-        var history = historyArr[i]
-        var li = $('<li>').text(history)
-        li.attr('id', 'list');
-        li.attr('data', history);
-        li.attr('class', 'list-group')
-        console.log(history)
-        historyList.prepend(history)
+        console.log(historyArr[i])
+        
+        var history = historyArr[i];
+        addHistoryitem(history);
+        
+    
+
+        
+       
+        
        
         
 

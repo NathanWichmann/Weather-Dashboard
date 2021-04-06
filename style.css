@@ -1,44 +1,44 @@
 body {
-    font-family: 'Open Sans', sans-serif;
-    font-size: 16px;
-    background-color: lightgray;
-  }
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  background-color: lightgray;
+}
 header {
-    text-align: center;
-    background-color: black;
-    color: white;
-    font-size: 50px;
-    margin:0;
-    padding:2%;
+  text-align: center;
+  background-color: black;
+  color: white;
+  font-size: 50px;
+  margin:0;
+  padding:2%;
 }
 
 
 /* .input-group{
-    padding-left: 0px;
-    align-content: left;
+  padding-left: 0px;
+  align-content: left;
 } */
 
 .card {
-  
-  box-shadow: 10px 10px 5px 0px rgba(238, 238, 238, 1);
-  margin: 15px;
-  align-content: center;
-  padding-bottom: 10px;
 
- }
- 
-  .green {
-    background-color: green;
-  }
-  .yellow {
-    background-color: yellow;
-  }
-  .orange{
-    background-color: orange;
-  }
-  .red {
-    background-color: red;
-  }
-  .purple {
-    background-color: purple;
-  }
+box-shadow: 10px 10px 5px 0px rgba(238, 238, 238, 1);
+margin: 15px;
+align-content: center;
+padding-bottom: 10px;
+
+}
+
+.green {
+  background-color: green;
+}
+.yellow {
+  background-color: yellow;
+}
+.orange{
+  background-color: orange;
+}
+.red {
+  background-color: red;
+}
+.purple {
+  background-color: purple;
+}
