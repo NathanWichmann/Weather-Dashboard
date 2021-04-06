@@ -1,7 +1,7 @@
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
-    /* background-color: lightgray; */
+    background-color: lightgray;
   }
 header {
     text-align: center;
@@ -19,7 +19,12 @@ header {
 }
 
 #currentweather {
-        /* Add shadows to create the "card" effect */
+        text-align: center;
         box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
         transition: 0.3s;
       }
+
+.card {
+  display: flex;
+  flex-direction: row;
+}

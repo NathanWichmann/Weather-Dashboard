@@ -1,15 +1,18 @@
 // this is the api key that allows acces to the api 
-var apiKey = "e3418ba2f79f3a5ca9fcb473c1215f42"
+var apiKey = "8fd343e8e0a625fd4fe2e99e70b356cb"
 //connects the dom to the html 
 var searchBtn = $('#searchBtn');
 //creates a cityInput variable to has no assigned value
 var cityInput;
+var historyList = $('historyList')
 var inputEll = "";
 //this creates the history array that is stored to the local storage with a key name history or array 
 var historyArr = JSON.parse(localStorage.getItem('history')) || [];
 //this sets the variables lat and lon with no value 
  var lat;
  var lon;
+
+ document.getElementById("currentWeather").style.display = "none";
 
 
 //this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
@@ -30,47 +33,20 @@ function getWeatherForecast() {
     fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
         .then((data) => {
-            // console.log('Fetch Response \n-------------');
+           
 
             for (let i = 0; i < data.list.length; i++) {
                 if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
                     console.log(data.list[i])
-                
+                    
+                    // document.getElementById("forecast").style.display = "block";
                     var dataEl = data.list[i].dt_txt
 
                     var tempatureEl = data.list[i].main.temp
-                    // var cityNameEl = data.list[i].name
                     var maxTempEl = data.list[i].main.temp_max
                     var minTemp = data.list[i].main.temp_min
                     var humidityEl = data.list[i].main.humidity
 
-//                         < div class="card" style = "width: 18rem;" >
-//                             <div class="card-body">
-//                                 <h5 class="card-title">Card title</h5>
-//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//                                 <a href="#" class="card-link">Card link</a>
-//                                 <a href="#" class="card-link">Another link</a>
-//                             </div>
-//                          </div >
-//                         < div class="card" style = "width: 18rem;" >
-//                             <div class="card-body">
-//                                 <h5 class="card-title">Card title</h5>
-//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//                                 <a href="#" class="card-link">Card link</a>
-//                                 <a href="#" class="card-link">Another link</a>
-//                             </div>
-//                          </div >
-//                         < div class="card" style = "width: 18rem;" >
-//                             <div class="card-body">
-//                                 <h5 class="card-title">Card title</h5>
-//                                 <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-//                                 <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-//                                 <a href="#" class="card-link">Card link</a>
-//                                 <a href="#" class="card-link">Another link</a>
-//                             </div>
-//                          </div >
 
                     // this is your column: no class attached yet
                     var col = document.createElement('div');
@@ -83,9 +59,9 @@ function getWeatherForecast() {
                     var cardtext = document.createElement('p');
                     var cardtextE = document.createElement('p');
 
-                    card.setAttribute('class', 'card w-25 p-3 text-center rounded bg-primary text-white');
+                    card.setAttribute('class', 'col-6 m-4 card w-25 text-center rounded bg-primary text-white');
                     cardBody.setAttribute('class', 'card-body');
-                    col.setAttribute('class', 'col')
+                    col.setAttribute('class', "col")
                     header6.setAttribute('class', 'card-title');
                     cardText.setAttribute('class', 'card-text');
                     cardTextEl.setAttribute('class', 'card-text');
@@ -102,30 +78,6 @@ function getWeatherForecast() {
 
                     $('.forecast').append(card)
 
-
-
-                    // card.classList = $('list-item flex-row justify-space-between align-center')
-
-
-                    // var dateEll = $('<p>').text('Date: ' + dataEl)
-                    // // card.append(dateEll)
-
-                    // var cityName = $('<p>').text('City: ' + cityNameEl)
-                    // // card.append(cityName);
-                    // $('.forecast').append(card)
-                    
-                    // var tempEl = $('<p>').text('Temp: ' + tempatureEl)
-                    // // card.append(tempEl);
-                    // $('.forecast').append(card)
-                    
-                    // var maxTemp = $('<p>').text('Max Temp: ' + maxTempEl)
-                    // // card.append(maxTemp)
-                    // $('.forecast').append(card)
-
-                    // var humidity = $('<p>').text('Humidity: ' + humidityEl)
-                    // // card.append(humidity)
-                    // $('.forecast').append(card)
-
                 }
             }
         })
@@ -140,8 +92,8 @@ function getCurrentWeather() {
         .then(response => response.json())
         .then((data) => {
 
-            // console.log('Fetch Response \n-------------');
-
+        
+            document.getElementById("currentWeather").style.display = "block";
             var card = $('<div>').addClass('currentWeather');
 
             var dateEl = $('<p>').text('Date: ' + moment().format("M/D/YYYY"))
@@ -208,7 +160,15 @@ function loadHistory(){
     //make list for history
 
     for (let i = 0; i < historyArr.length; i++) {
-        // console.log(historyArr[i])
+        console.log(historyArr[i])
+        var city = historyArr[i]
+
+        var li = $("<li#>").text(city)
+
+        li.attr('class')
+        historyList.append(li)
+
+        
         //make li tags w/ a button inside
         //apend li tag to UL tag on html
         //button when clicked should call getCurrentWeather
