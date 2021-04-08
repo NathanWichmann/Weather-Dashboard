@@ -16,5 +16,7 @@ This brings us to my next hurdle of this project. On the friday before the assig
 <img src="https://user-images.githubusercontent.com/77902368/113517404-b5cc0800-954d-11eb-8913-a713772c87fb.png" alt="Screenshot"> 
 <img src="https://user-images.githubusercontent.com/77902368/113517462-178c7200-954e-11eb-9f75-bad2b0ceca2d.png" alt="Screenshot"> 
 
+It turns out there was an error on my end. The reason I did not think it was me was because I had not made any changes to the fetch and it was showing a bad fetch. I decided to lookinto it a bit further. 
+
 
 
