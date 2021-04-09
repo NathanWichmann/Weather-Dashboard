@@ -16,7 +16,7 @@ document.getElementById("currentWeather").style.display = "none";
 document.getElementById("weather").style.display = "none";
 //this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
 function getUvIndex() {
-    fetch(`http://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/uvi?lat=${lat}&lon=${lon}&appid=${apiKey}`)
         .then(response => response.json())
         .then((data) => {
 
@@ -46,7 +46,7 @@ function getUvIndex() {
 
 // this creates the 5 cards for the weather forcast and styles them 
 function getWeatherForecast() {
-    fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
         .then((data) => {
             // console.log('Fetch Response \n-------------');
@@ -63,7 +63,7 @@ function getWeatherForecast() {
 
 
                     // these are the sky conditions and icons 
-                    var icon = 'http://openweathermap.org/img/wn/' + skyConditions + '@2x.png';
+                    var icon = 'https://openweathermap.org/img/wn/' + skyConditions + '@2x.png';
                     console.log(icon);
                     var dataEl = moment().format("M/D/YYYY")
                     // sets the temp, max, min and humidity 
@@ -111,7 +111,7 @@ function getWeatherForecast() {
 
 // this function creates the current weather 
 function getCurrentWeather() {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
         .then((data) => {
             $('#currentWeather').empty();
