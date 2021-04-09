@@ -21,7 +21,7 @@ I was kicked out of the API for having to many requests in a minute. I did have 
 
 <img src="https://user-images.githubusercontent.com/77902368/114241642-7c353b80-9957-11eb-9dfb-2d6221b14c1c.png" alt="Screenshot"> 
 
-#Contributers 
+# Contributers 
 I did have a lot of help from my Tutor Joey and the Teacher Assistants 
 
 
