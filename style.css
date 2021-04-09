@@ -41,4 +41,47 @@ padding-bottom: 10px;
 }
 .purple {
   background-color: purple;
+
 }
+
+
+.cityName{
+  font-weight: bold;
+  width: 60%;
+}
+
+
+
+#date{
+  width:40%;
+  float: right;
+  font-size: x-large;
+}
+
+.forecast{
+  display: flex;
+  justify-content: center;
+}
+
+#forecastHead{
+  display: flex;
+  justify-content: center;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  align-self: unset;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+li { 
+  display: flex;
+  align-items: center;
+  align-content: center;
+ }
+
+ #uvEl {
+   margin-left: 0%;
+   margin-right: 75%;
+ }
