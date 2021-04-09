@@ -11,7 +11,7 @@ var historyArr = JSON.parse(localStorage.getItem('history')) || [];
 //this sets the variables lat and lon with no value 
 var lat;
 var lon;
-
+//these stop the display of headings 
 document.getElementById("currentWeather").style.display = "none";
 document.getElementById("weather").style.display = "none";
 //this gets the uv index form the lat and lon coordinates api and creates the p tag to display the value and span is used b/c a p tag only takes text not number values 
@@ -20,7 +20,7 @@ function getUvIndex() {
         .then(response => response.json())
         .then((data) => {
 
-            var uvEl = $('<p>').text('UV Index: ');
+            var uvEl = $('<p>').attr('id', 'uvEl').text('UV Index: ');
             var span = $('<span>').text(data.value)
 
             $('#currentWeather .currentWeather').append(uvEl.append(span));
@@ -44,7 +44,7 @@ function getUvIndex() {
         });
 }
 
-
+// this creates the 5 cards for the weather forcast and styles them 
 function getWeatherForecast() {
     fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${cityInput}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
@@ -52,27 +52,27 @@ function getWeatherForecast() {
             // console.log('Fetch Response \n-------------');
             $('.forecast').empty();
             document.getElementById("weather").style.display = "block";
-
+            // for loop goes through the data.list array and then attaches to the 3:pm time only each of the 5 days 
             for (let i = 0; i < data.list.length; i++) {
                 if (data.list[i].dt_txt.indexOf('15:00:00') !== -1) {
                     console.log(data.list[i])
-
+                    // this creates the skyConditions variable that creates the icons 
                     var skyConditions = data.list[i].weather[0].icon
 
                     console.log(data.list[i].weather[0].icon)
 
 
-
+                    // these are the sky conditions and icons 
                     var icon = 'http://openweathermap.org/img/wn/' + skyConditions + '@2x.png';
                     console.log(icon);
                     var dataEl = moment().format("M/D/YYYY")
-
+                    // sets the temp, max, min and humidity 
                     var tempatureEl = data.list[i].main.temp
                     var maxTempEl = data.list[i].main.temp_max
                     var minTemp = data.list[i].main.temp_min
                     var humidityEl = data.list[i].main.humidity
 
-                    // this is your column: no class attached yet
+                    // creates the div, img and p tags 
                     var col = document.createElement('div');
                     var imgTag = document.createElement('img');
                     var card = document.createElement('div');
@@ -82,7 +82,7 @@ function getWeatherForecast() {
                     var cardTextEl = document.createElement('p');
                     var cardtext = document.createElement('p');
                     var cardtextE = document.createElement('p');
-
+                    // creates the cards for the forcast and styles them 
                     imgTag.setAttribute('src', icon);
                     card.setAttribute('class', 'card text-center rounded bg-primary text-white');
                     cardBody.setAttribute('class', 'card-body');
@@ -92,25 +92,24 @@ function getWeatherForecast() {
                     cardTextEl.setAttribute('class', 'card-text');
                     cardtext.setAttribute('class', 'card-text');
                     cardtextE.setAttribute('class', 'card-text');
-
+                    // appends the cards to the variables 
                     header6.textContent = (dataEl);
                     cardTextEl.textContent = ("Temp: " + Math.round(tempatureEl) + '°C');
                     cardtext.textContent = ("Max Temp: " + Math.round(maxTempEl) + '°C');
                     cardText.textContent = ("Min Temp: " + Math.round(minTemp) + '°C');
                     cardtextE.textContent = ("Humidity: " + humidityEl + '%');
                     card.append(cardBody);
+                    // creates the order they appear on the card 
                     cardBody.append(header6, imgTag, cardTextEl, cardtext, cardText, cardtextE);
-
+                    // attaches to the html 
                     $('.forecast').append(card)
+
                 }
             }
         })
 }
 
-
-
-
-
+// this function creates the current weather 
 function getCurrentWeather() {
     fetch(`http://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`)
         .then(response => response.json())
@@ -137,7 +136,7 @@ function getCurrentWeather() {
             card.append(feelsLike)
             $('#currentWeather').append(card);
 
-            var wind = $('<p>').text('Wind Speed: ' + data.wind.speed + 'kph');
+            var wind = $('<p>').text('Wind Speed: ' + data.wind.speed + ' ' + 'km/h');
             card.append(wind)
             $('#currentWeather').append(card);
 
@@ -154,19 +153,19 @@ function getCurrentWeather() {
             $('#currentWeather').append(card);
             lat = data.coord.lat;
             lon = data.coord.lon;
-
+            // attaches the uv index to the card 
             getUvIndex();
+
 
 
         });
 };
 
-
+// creates the searchBtn when clicked and attaches the user input to the html and the javascript and creates a value 
 searchBtn.on('click', function () {
-
     // console.log(input.val());
     cityInput = $('#input-search').val();
-
+    // generates the history arr to the local storage
     if (historyArr.indexOf(cityInput) === -1) {
 
         historyArr.push(cityInput);
@@ -177,7 +176,7 @@ searchBtn.on('click', function () {
     getWeatherForecast();
 });
 
-
+// this function puts the cityInput value in the history and creates the app calls again
 function historySelect() {
 
     cityInput = this.value;
@@ -186,19 +185,15 @@ function historySelect() {
 
 }
 
-
+// this function loads the history arr 
 function loadHistory() {
     //make list for history
 
     for (let i = 0; i < historyArr.length; i++) {
-
-
         var history = historyArr[i];
-
-
         var li = document.createElement('li')
         var buttonTagEl = document.createElement('button');
-
+        // creates the button and sets the value to history 
         buttonTagEl.classList = 'list-group-item align-center';
         buttonTagEl.setAttribute('value', history);
         buttonTagEl.innerHTML = history;
@@ -208,14 +203,15 @@ function loadHistory() {
 
         var list = document.querySelector('.list-group');
         list.appendChild(li);
+
     }
-
 };
+//loads the history, is supposed to do so initially but doesnt 
+loadHistory()
 
 
 
 
-loadHistory();
 
 
 
